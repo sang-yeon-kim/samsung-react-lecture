@@ -1,0 +1,26 @@
+import { useState } from 'react'
+
+export default function App() {
+  const [title, setTitle] = useState('Hello world!')
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setTitle(event.target.value)
+  }
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
+      console.log(event.currentTarget.value)
+    }
+  }
+
+  return (
+    <>
+      <input
+        value={title}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+      />
+      <h1 className={title.length > 12 ? 'active' : ''}>{title}</h1>
+      <div className="box"></div>
+    </>
+  )
+}
