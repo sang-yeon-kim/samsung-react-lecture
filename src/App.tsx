@@ -1,26 +1,20 @@
-import { useState } from 'react'
+import A1 from './components/A1'
+import B1 from './components/B1'
+import { useState, createContext } from 'react'
+
+export const ColorContext = createContext('')
+export const MessageContext = createContext('')
 
 export default function App() {
-  const [title, setTitle] = useState('Hello world!')
-
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setTitle(event.target.value)
-  }
-  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
-      console.log(event.currentTarget.value)
-    }
-  }
-
+  const [color] = useState('red')
+  const [message] = useState('')
   return (
-    <>
-      <input
-        value={title}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-      />
-      <h1 className={title.length > 12 ? 'active' : ''}>{title}</h1>
-      <div className="box"></div>
-    </>
+    <ColorContext.Provider value={color}>
+      <MessageContext.Provider value={message}>
+        <h1>App: {color}</h1>
+        <A1 />
+        <B1 />
+      </MessageContext.Provider>
+    </ColorContext.Provider>
   )
 }

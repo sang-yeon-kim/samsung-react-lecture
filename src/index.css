@@ -1,4 +1,7 @@
-h1.active {
-  color: red;
-  font-weight: 700;
+@import 'tailwindcss';
+
+body {
+  font-size: 16px;
+  font-weight: 400;
+  color: #222;
 }
