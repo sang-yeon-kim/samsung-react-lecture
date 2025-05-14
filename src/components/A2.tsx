@@ -1,11 +1,7 @@
-import { useContext } from 'react'
-import { ColorContext } from '../App'
-import { IsActiveContext } from './B2'
+import { useColorStore } from '../stores/color'
 
 export default function A2() {
-  const color = useContext(ColorContext)
-  console.log(IsActiveContext)
-  // const [isActive] = useContext(IsActiveContext)!
+  const color = useColorStore(state => state.color)
   return (
     <>
       <h2>A2: {color}</h2>

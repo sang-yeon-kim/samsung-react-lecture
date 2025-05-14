@@ -1,20 +1,29 @@
-import A1 from './components/A1'
-import B1 from './components/B1'
-import { useState, createContext } from 'react'
-
-export const ColorContext = createContext('')
-export const MessageContext = createContext('')
+import { useMovieStore } from './stores/movie'
 
 export default function App() {
-  const [color] = useState('red')
-  const [message] = useState('')
+  const movies = useMovieStore(state => state.movies)
+  const fetchMovies = useMovieStore(state => state.fetchMovies)
+
   return (
-    <ColorContext.Provider value={color}>
-      <MessageContext.Provider value={message}>
-        <h1>App: {color}</h1>
-        <A1 />
-        <B1 />
-      </MessageContext.Provider>
-    </ColorContext.Provider>
+    <>
+      <div>
+        <input
+          className="rounded-md border-1 border-gray-400"
+          type="text"
+          onKeyDown={event => {
+            if (event.key === 'Enter') {
+              fetchMovies()
+            }
+          }}
+        />
+        <button onClick={fetchMovies}>Search!</button>
+      </div>
+
+      <div>
+        {movies.map(movie => {
+          return <div key={movie.imdbID}>{movie.Title}</div>
+        })}
+      </div>
+    </>
   )
 }

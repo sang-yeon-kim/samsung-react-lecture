@@ -1,14 +1,11 @@
-class Person {
-  constructor(public name: string) {
-    this.name = name
+interface Obj {
+  abc: () => Promise<number>
+}
+
+const obj: Obj = {
+  abc: async () => {
+    return 123
   }
 }
 
-const neo = new Person('Neo')
-const evan = new Person('Evan')
-
-function getName(person: Person) {
-  return person.name
-}
-console.log(getName(neo)) // 'Neo'
-console.log(getName(evan)) // 'Evan'
+console.log(obj.abc()) // promise
