@@ -95,10 +95,17 @@ export const useMovieStore = create(
       },
       fetchMovieDetails: async (movieId?: string) => {
         if (!movieId) return
+        set({
+          currentMovie: null,
+          isLoading: true
+        })
         const { data } = await axios(
           `https://omdbapi.com?apikey=7035c60c&i=${movieId}`
         )
-        set({ currentMovie: data })
+        set({
+          currentMovie: data,
+          isLoading: false
+        })
       }
     })
   )
@@ -118,3 +125,6 @@ export const useMovieStore = create(
 //     }
 //   )
 // )
+
+// https://heropy.dev/images/main.png?h=100
+// https://heropy.dev/images/main_SX100.png
