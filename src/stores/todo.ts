@@ -47,6 +47,7 @@ export const useTodoStore = create(
             done: todo.done
           }
         })
+        await fetchTodos()
       }
       return {
         setTitle,

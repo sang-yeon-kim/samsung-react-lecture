@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useTodoStore } from '@/stores/todo'
+import TodoItem from '@/components/todos/TodoItem'
 
 export default function TodoList() {
   const todos = useTodoStore(state => state.todos)
@@ -12,7 +13,10 @@ export default function TodoList() {
   return (
     <div>
       {todos.map(todo => (
-        <div key={todo.id}>{todo.title}</div>
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+        />
       ))}
     </div>
   )
