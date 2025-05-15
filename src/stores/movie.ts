@@ -10,6 +10,37 @@ export interface Movie {
   Type: string
   Poster: string
 }
+export interface MovieDetails {
+  Title: string
+  Year: string
+  Rated: string
+  Released: string
+  Runtime: string
+  Genre: string
+  Director: string
+  Writer: string
+  Actors: string
+  Plot: string
+  Language: string
+  Country: string
+  Awards: string
+  Poster: string
+  Ratings: Rating[]
+  Metascore: string
+  imdbRating: string
+  imdbVotes: string
+  imdbID: string
+  Type: string
+  DVD: string
+  BoxOffice: string
+  Production: string
+  Website: string
+  Response: string
+}
+export interface Rating {
+  Source: string
+  Value: string
+}
 
 export const useMovieStore = create(
   combine(
@@ -17,7 +48,8 @@ export const useMovieStore = create(
       searchText: '',
       isLoading: false,
       message: '',
-      movies: [] as Movies // 타입 단언!
+      movies: [] as Movies, // 타입 단언!
+      currentMovie: null as MovieDetails | null
     },
     (set, get) => ({
       setSearchText: (searchText: string) => {
@@ -31,7 +63,6 @@ export const useMovieStore = create(
           isLoading: true,
           message: ''
         })
-        await new Promise(resolve => setTimeout(resolve, 3000))
         try {
           const {
             data: { Search: movies = [], Response, Error }
@@ -61,6 +92,13 @@ export const useMovieStore = create(
             isLoading: false
           })
         }
+      },
+      fetchMovieDetails: async (movieId?: string) => {
+        if (!movieId) return
+        const { data } = await axios(
+          `https://omdbapi.com?apikey=7035c60c&i=${movieId}`
+        )
+        set({ currentMovie: data })
       }
     })
   )

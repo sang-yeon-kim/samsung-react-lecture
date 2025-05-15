@@ -15,7 +15,7 @@ export default function MovieList() {
         </div>
       )}
       {message && <div>{message}</div>}
-      <div>
+      <div className="flex flex-wrap gap-[20px]">
         {movies.map(movie => {
           return (
             <MovieItem
